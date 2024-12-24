@@ -3,16 +3,29 @@ package org.example.petwalk;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.petwalk.constants.Role;
 
 @Entity
 @Getter
 @Setter
 public class User {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    Long idUser;
-    @Column
-    String nom;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
+    private String fullName;
+
+    private String mobile;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 }
