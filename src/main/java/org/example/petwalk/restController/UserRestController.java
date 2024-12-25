@@ -1,15 +1,10 @@
 package org.example.petwalk.restController;
 
 import lombok.AllArgsConstructor;
-import org.example.petwalk.User;
+import org.example.petwalk.entity.User;
 import org.example.petwalk.repository.IUserRepo;
 import org.example.petwalk.services.interfaces.IUserService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +26,18 @@ public class UserRestController {
     User addUser(@RequestBody User user){
         return userService.addUser(user);
     }
+
+    @GetMapping("/user/get-By-Id/{id}")
+    User getUserById(@PathVariable Long id){
+        return userService.getUserById(id);
+    }
+
+    @GetMapping(path = "/user/get-By-Email/{email}")
+    User getUserByEmail(@PathVariable String email){
+        return userService.getUserByEmail(email);
+    }
+
+
 
 
 //    @PostMapping("/register")

@@ -1,4 +1,4 @@
-package org.example.petwalk;
+package org.example.petwalk.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
