@@ -23,6 +23,7 @@ public class User {
     @Column(nullable = false)
     private String fullName;
 
+    @Column
     private String mobile;
 
     @Enumerated(EnumType.STRING)
