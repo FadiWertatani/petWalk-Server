@@ -26,6 +26,9 @@ public class User {
     @Column
     private String mobile;
 
+    @Column(name = "profile_picture", columnDefinition = "BLOB")
+    private byte[] profilePicture;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
