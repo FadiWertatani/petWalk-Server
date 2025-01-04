@@ -1,8 +1,9 @@
 package org.example.petwalk.repository;
 
-import org.example.petwalk.entity.Conversation;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.example.petwalk.entity.Conversation;
 
 import java.util.List;
 

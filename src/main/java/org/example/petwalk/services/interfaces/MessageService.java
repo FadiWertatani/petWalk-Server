@@ -5,11 +5,13 @@ import org.example.petwalk.entity.Message;
 import java.util.List;
 
 public interface MessageService {
-    Message sendMessage(Message message, Long conversationId);
+    Message sendMessage(Message message);
 
-    List<Message> getMessagesByConversationId(Long conversationId);
+    List<Message> getMessagesByReceiver(String receiver);
 
-    Message getLastMessageByConversationId(Long conversationId);
+    List<Message> getMessagesBySender(String sender);
+
+    Message markMessageAsRead(Long id);
 
     void deleteMessage(Long id);
 }

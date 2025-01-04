@@ -5,35 +5,26 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.petwalk.entity.Message;
 
 import java.util.List;
-
 
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-
+@AllArgsConstructor
 public class Conversation {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idConversation;
 
-    public Long idConversation;
-
-    public String userName;
-
-    public String lastMessage;
-
-    public String timestamp;
-
-    public String userImageUrl;
-
+    private String userName;
+    private String lastMessage;
+    private String timestamp;
+    private String userImageUrl;
 
     @OneToMany(mappedBy = "conversation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> messages;
-
-
-
 }

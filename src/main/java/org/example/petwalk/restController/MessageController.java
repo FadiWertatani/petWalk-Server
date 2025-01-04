@@ -2,7 +2,7 @@ package org.example.petwalk.restController;
 
 import org.example.petwalk.entity.Message;
 import org.example.petwalk.services.interfaces.MessageService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,26 +11,35 @@ import java.util.List;
 @RequestMapping("/api/messages")
 public class MessageController {
 
-    @Autowired
-    private MessageService messageService;
+    private final MessageService messageService;
 
-    @PostMapping("/createMessage/{conversationId}")
-    public Message sendMessage(@RequestBody Message message, @PathVariable Long conversationId) {
-        return messageService.sendMessage(message, conversationId);
+    public MessageController(MessageService messageService) {
+        this.messageService = messageService;
     }
 
-    @GetMapping("/{conversationId}")
-    public List<Message> getMessagesByConversationId(@PathVariable Long conversationId) {
-        return messageService.getMessagesByConversationId(conversationId);
+    @PostMapping("/send")
+    public ResponseEntity<Message> sendMessage(@RequestBody Message message) {
+        return ResponseEntity.ok(messageService.sendMessage(message));
     }
 
-    @GetMapping("/last/{conversationId}")
-    public Message getLastMessageByConversationId(@PathVariable Long conversationId) {
-        return messageService.getLastMessageByConversationId(conversationId);
+    @GetMapping("/received")
+    public ResponseEntity<List<Message>> getReceivedMessages(@RequestParam String receiver) {
+        return ResponseEntity.ok(messageService.getMessagesByReceiver(receiver));
+    }
+
+    @GetMapping("/sent")
+    public ResponseEntity<List<Message>> getSentMessages(@RequestParam String sender) {
+        return ResponseEntity.ok(messageService.getMessagesBySender(sender));
+    }
+
+    @PutMapping("/{id}/read")
+    public ResponseEntity<Message> markMessageAsRead(@PathVariable Long id) {
+        return ResponseEntity.ok(messageService.markMessageAsRead(id));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteMessage(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteMessage(@PathVariable Long id) {
         messageService.deleteMessage(id);
+        return ResponseEntity.noContent().build();
     }
 }

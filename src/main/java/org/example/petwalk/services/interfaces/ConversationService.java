@@ -3,13 +3,16 @@ package org.example.petwalk.services.interfaces;
 import org.example.petwalk.entity.Conversation;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ConversationService {
     Conversation createConversation(Conversation conversation);
 
-    Conversation getConversationById(Long id);
+    List<Conversation> getAllConversations();
 
-    List<Conversation> getConversationsByUserName(String userName);
+    Optional<Conversation> getConversationById(Long id);
+
+    Conversation updateConversation(Long id, Conversation updatedConversation);
 
     void deleteConversation(Long id);
 }

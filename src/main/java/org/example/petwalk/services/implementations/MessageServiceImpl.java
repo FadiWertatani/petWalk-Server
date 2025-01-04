@@ -1,44 +1,43 @@
 package org.example.petwalk.services.implementations;
 
-import org.example.petwalk.entity.Conversation;
 import org.example.petwalk.entity.Message;
-import org.example.petwalk.repository.ConversationRepository;
 import org.example.petwalk.repository.MessageRepository;
 import org.example.petwalk.services.interfaces.MessageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service
 public class MessageServiceImpl implements MessageService {
 
-    @Autowired
-    private MessageRepository messageRepository;
+    private final MessageRepository messageRepository;
 
-    @Autowired
-    private ConversationRepository conversationRepository;
+    public MessageServiceImpl(MessageRepository messageRepository) {
+        this.messageRepository = messageRepository;
+    }
 
     @Override
-    public Message sendMessage(Message message, Long conversationId) {
-        Conversation conversation = conversationRepository.findById(conversationId)
-                .orElseThrow(() -> new RuntimeException("Conversation non trouvée avec l'ID : " + conversationId));
-
-        message.setConversation(conversation);
-        message.setTimestamp(); // Ajouter la date d'envoi
+    public Message sendMessage(Message message) {
         return messageRepository.save(message);
     }
 
     @Override
-    public List<Message> getMessagesByConversationId(Long conversationId) {
-        return messageRepository.findMessagesByConversationIdOrdered(conversationId);
+    public List<Message> getMessagesByReceiver(String receiver) {
+        return messageRepository.findByReceiver(receiver);
     }
 
     @Override
-    public Message getLastMessageByConversationId(Long conversationId) {
-        return messageRepository.findLastMessageByConversationId(conversationId);
+    public List<Message> getMessagesBySender(String sender) {
+        return messageRepository.findBySender(sender);
+    }
+
+    @Override
+    public Message markMessageAsRead(Long id) {
+        return messageRepository.findById(id)
+                .map(message -> {
+                    message.setRead(true);
+                    return messageRepository.save(message);
+                }).orElseThrow(() -> new RuntimeException("Message not found"));
     }
 
     @Override

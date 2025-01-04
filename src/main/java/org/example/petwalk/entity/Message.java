@@ -1,13 +1,12 @@
 package org.example.petwalk.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.petwalk.entity.Conversation;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -15,32 +14,25 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public  Long idMessage;
+    private Long id;
 
-    public String content;
-
-    public Date timestamp;
-
-    public String sender;
-
-    public String receiver;
-
-    public boolean isRead;
-
-    public   boolean isSent;
-
+    private String content;  // Texte du message
+    private Date timestamp;  // Horodatage
+    private boolean sent;    // Indique si le message est envoyé ou reçu
+    private boolean imageMessage;  // Si le message contient une image
+    private String imageBase64;    // Contenu de l'image encodé en Base64
+    private boolean audioMessage;  // Si le message contient un audio
+    private String audioFilePath;  // Chemin ou URL du fichier audio
+    private boolean isRead; // Ensure this field exists
+    private String sender;
+    private String receiver;
 
 
     @ManyToOne
-    @JoinColumn(name = "idConversation", nullable = false)
-    public Conversation conversation;
-
-
-    public void setTimestamp() {
-    }
+    @JoinColumn(name = "conversation_id", nullable = false)
+    private Conversation conversation;
 }
