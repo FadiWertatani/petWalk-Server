@@ -22,7 +22,7 @@ public class PetProfilempl implements IPetProfileService {
 
     @Override
     public PetProfile getPetProfileById(int id)
-    {return  petRepo.findPetProfileById(Math.toIntExact(id));}
+    {return  petRepo.findPetProfileByIdpet(Math.toIntExact(id));}
 
 
 

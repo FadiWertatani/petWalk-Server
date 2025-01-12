@@ -6,6 +6,6 @@ import org.example.petwalk.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IPetProfileRepo extends JpaRepository<PetProfile, Long> {
-    PetProfile findPetProfileById(int id);
+    PetProfile findPetProfileByIdpet(int id);
 
 }
