@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.example.petwalk.entity.User;
 import org.example.petwalk.repository.IUserRepo;
 import org.example.petwalk.services.interfaces.IUserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +36,11 @@ public class UserRestController {
     @GetMapping(path = "/user/get-By-Email/{email}")
     User getUserByEmail(@PathVariable String email){
         return userService.getUserByEmail(email);
+    }
+
+    @PutMapping("/user/update/{email}")
+    User updateUserProfile(@RequestBody User user, @PathVariable String email) {
+        return userService.updateUser(email, user);
     }
 
 
