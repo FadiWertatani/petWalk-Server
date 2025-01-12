@@ -3,6 +3,8 @@ package org.example.petwalk.constants;
 public enum Role {
 
     OWNER,
-    PROMONEUR
+    PROMONEUR,
+    Chat,
+    Chien
 
 }
