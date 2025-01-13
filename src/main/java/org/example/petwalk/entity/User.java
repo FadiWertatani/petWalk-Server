@@ -5,11 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.petwalk.constants.Role;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,4 +34,9 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @OneToMany(mappedBy = "owner")
+    private List<Reservation> reservations = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "promeneurs")
+    private List<Reservation> promeneursReservations = new ArrayList<>();
 }
