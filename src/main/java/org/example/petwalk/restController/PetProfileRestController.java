@@ -1,22 +1,22 @@
 package org.example.petwalk.restController;
 
+import lombok.AllArgsConstructor;
 import org.example.petwalk.entity.PetProfile;
 import org.example.petwalk.repository.IPetProfileRepo;
 import org.example.petwalk.services.interfaces.IPetProfileService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
+@RestController
 public class PetProfileRestController {
     IPetProfileService petProfileService;
     IPetProfileRepo petProfileRepo;
 
     @GetMapping("/petprofiles/get-all")
-    List<PetProfile> getAllProfiles() {
+    List<PetProfile> getAllPets() {
         return petProfileService.getAllProfiles();
     }
 
