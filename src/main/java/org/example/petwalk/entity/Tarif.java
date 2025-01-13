@@ -8,24 +8,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Tarif {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idTarif;
+    private Long id;
 
-    @Column(nullable = false)
-    private Long idPromeneur;
-
-    @Column(nullable = false)
-    private Double baseTarif;
-
-    @Column(nullable = false)
-    private Double tarifDynamique;
-
-    @Column(nullable = false)
-    private String criteres;
-
-    @ManyToOne
-    @JoinColumn(name = "idReservation")
+    @OneToOne
     private Reservation reservation;
+
+    @Column(nullable = false)
+    private double montant;
 }

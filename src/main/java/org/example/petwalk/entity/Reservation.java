@@ -4,28 +4,36 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 public class Reservation {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(unique = true, nullable = false)
+    private String numSerie = UUID.randomUUID().toString();
 
-    @Column(nullable = false)
-    private LocalDateTime startTime;
+    @ManyToOne(optional = true) // Le propriétaire peut être facultatif
+    private User owner;
 
-    @Column(nullable = false)
-    private LocalDateTime endTime;
+    @ManyToMany
+    @JoinTable(
+            name = "reservation_promeneurs",
+            joinColumns = @JoinColumn(name = "reservation_id"),
+            inverseJoinColumns = @JoinColumn(name = "promeneur_id")
+    )
+    private List<User> promeneurs = new ArrayList<>();
 
-    @Column(nullable = false)
-    private String status;
+    @Column(nullable = false) // Rend obligatoire l'heure de début
+    private LocalTime heurDebut;
 
+    @Column(nullable = false) // Rend obligatoire l'heure de fin
+    private LocalTime heurFin;
 }
